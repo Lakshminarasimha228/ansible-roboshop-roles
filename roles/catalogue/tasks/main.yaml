@@ -33,4 +33,4 @@
 - name: app setup
   include_role:
     name: common
-    tasks_from: syatemd.yaml
+    tasks_from: systemd.yaml
