@@ -1,9 +1,0 @@
-CATALOGUE_HOST: catalogue.lakshmi.cyou
-USER_HOST: user.lakshmi.cyou
-CART_HOST: cart.lakshmi.cyou
-SHIPPING_HOST: shipping.lakshmi.cyou
-PAYMENT_HOST: payment.lakshmi.cyou
-MYSQL_HOST: mysql.lakshmi.cyou
-MONGODB_HOST: mongodb.lakshmi.cyou
-REDIS_HOST: redis.lakshmi.cyou
-RABBITMQ_HOST: rabbitmq.lakshmi.cyou
