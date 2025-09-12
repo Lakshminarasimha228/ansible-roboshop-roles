@@ -3,7 +3,7 @@
     name: common
     tasks_from: app-setup
 
-- name: app setup
+- name: maven setup
   include_role:
     name: common
     tasks_from: maven
@@ -21,8 +21,7 @@
   - /app/db/app-user.sql
   - /app/db/master-data.sql
 
-  - name: app setup
+- name: systemd setup
   include_role:
     name: common
     tasks_from: systemd
-
