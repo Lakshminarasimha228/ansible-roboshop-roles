@@ -28,13 +28,14 @@
 - name: print catalogue output
   ansible.builtin.debug:
     msg: "{{ catalogue_output }}"
-
+  
 
 - name: load products
   ansible.builtin.shell: mongosh --host mongodb.lakshmi.cyou < /app/db/master-data.js
-  when: catalogue_output.stdout is defined and '-1' in catalogue_output.stdout
+  when: catalogue_output.stdout | int < 0
 
 - name: systemd setup
   include_role:
     name: common
     tasks_from: systemd.yaml
+
