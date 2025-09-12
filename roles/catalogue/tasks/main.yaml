@@ -19,12 +19,16 @@
     state: present
 
 - name: check products loaded or not
-  ansible.builtin.command: mongosh --host mongodb.lakshmi.cyou --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
   register: catalogue_output
+  # ignore_errors: true
+  # ignore_unreachable: true
 
 - name: print catalogue output
   ansible.builtin.debug:
     msg: "{{ catalogue_output }}"
+  # ignore_errors: true
+  # ignore_unreachable: true
 
 - name: load products
   ansible.builtin.shell: mongosh --host mongodb.lakshmi.cyou < /app/db/master-data.js
