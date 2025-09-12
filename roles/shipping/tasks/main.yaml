@@ -9,8 +9,6 @@
     tasks_from: maven
 
 - name: import data
-  tags: 
-  - import
   community.mysql.mysql_db:
     name: all
     login_user: "{{ MYSQL_ROOT_USER }}"
@@ -27,3 +25,4 @@
   include_role:
     name: common
     tasks_from: systemd
+
