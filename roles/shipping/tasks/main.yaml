@@ -35,6 +35,10 @@
     login_host: "{{ MYSQL_HOST }}"
     state: import
     target: /app/db/shipping.sql
+    loop:
+    - /app/db/schema.sql
+    - /app/db/app-user.sql
+    - /app/db/master-data.sq
 
 - name: systemd setup
   include_role:
