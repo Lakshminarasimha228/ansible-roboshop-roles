@@ -8,11 +8,23 @@
     name: common
     tasks_from: maven
 
-# Copy schema file before import
+# Ensure /app/db directory exists
+- name: create db directory
+  file:
+    path: /app/db
+    state: directory
+    owner: roboshop
+    group: roboshop
+    mode: '0755'
+
+# Copy schema file from role's files/ to target host
 - name: copy shipping schema file
   copy:
-    src: shipping.sql
+    src: shipping.sql        # Must exist in roles/shipping/files/
     dest: /app/db/shipping.sql
+    owner: roboshop
+    group: roboshop
+    mode: '0644'
 
 # Import schema into MySQL
 - name: import shipping schema
