@@ -8,6 +8,13 @@
     name: common
     tasks_from: maven
 
+# Copy schema file before import
+- name: copy shipping schema file
+  copy:
+    src: shipping.sql
+    dest: /app/db/shipping.sql
+
+# Import schema into MySQL
 - name: import shipping schema
   community.mysql.mysql_db:
     name: shipping
