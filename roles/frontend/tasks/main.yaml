@@ -40,12 +40,7 @@
   ansible.builtin.file:
     path: /etc/nginx/nginx.conf
     state: absent
-
-- name: Reload nginx
-  systemd:
-    name: nginx
-    state: reloaded
-  when: nginx_check.rc == 0 
+ 
 
 - name: copy roboshop nginx conf
   ansible.builtin.template:
