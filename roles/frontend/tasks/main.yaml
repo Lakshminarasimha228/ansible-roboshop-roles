@@ -9,11 +9,6 @@
     name: nginx
     state: present
 
-- name: stopped and reload nginx
-  ansible.builtin.service:
-   name: nginx
-   state: present
-
 - name: start and enable nginx
   ansible.builtin.service:
     name: nginx
