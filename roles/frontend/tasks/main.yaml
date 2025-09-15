@@ -41,6 +41,11 @@
     path: /etc/nginx/nginx.conf
     state: absent
 
+- name: Reload nginx service
+  ansible.builtin.systemd:
+    name: nginx
+    state: reloaded    
+
 - name: copy roboshop nginx conf
   ansible.builtin.template:
     src: nginx.conf.j2
