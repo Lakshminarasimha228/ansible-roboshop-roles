@@ -18,16 +18,11 @@
     name: mongodb-mongosh
     state: present
 
-# - name: check products loaded or not
-#   ansible.builtin.command: mongosh --host mongodb.lakshmi.cyou --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
-#   register: catalogue_output
-#   failed_when: false
-
 - name: check products loaded or not
-  ansible.builtin.command: >
-    mongosh --host mongodb.lakshmi.cyou --quiet --eval 'db.adminCommand({ listDatabases: 1 }).databases.map(db => db.name).includes("catalogue")'
+  ansible.builtin.command: mongosh --host mongodb.lakshmi.cyou --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
   register: catalogue_output
   failed_when: false
+
 
 - name: print catalogue output
   ansible.builtin.debug:
