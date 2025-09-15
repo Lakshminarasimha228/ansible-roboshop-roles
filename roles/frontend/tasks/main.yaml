@@ -44,8 +44,7 @@
 - name: Reload nginx service
   ansible.builtin.systemd:
     name: nginx
-    state: reloaded
-  when: nginx_check.rc == 0   
+    state: reloaded  
 
 - name: copy roboshop nginx conf
   ansible.builtin.template:
