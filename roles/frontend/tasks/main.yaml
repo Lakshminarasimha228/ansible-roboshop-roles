@@ -42,7 +42,7 @@
     state: absent
 
 - name: Reload nginx service
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     name: nginx
     state: reloaded  
 
