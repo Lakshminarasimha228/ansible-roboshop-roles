@@ -9,11 +9,11 @@
     shell: /sbin/nologin
     system: true
     home: /app
+    
 - name: download application
-  ansible.builtin.unarchive:
-    src: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v{{ app_version }}.zip"
-    dest: /app
-    remote_src: yes    
+  ansible.builtin.get_url:
+    url: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip"
+    dest: "/tmp/{{ component }}.zip"   
 
 - name: "download {{ component }} code"
   ansible.builtin.get_url:
