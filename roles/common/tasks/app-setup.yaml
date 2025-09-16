@@ -15,6 +15,16 @@
     url: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip"
     dest: /tmp/{{ component }}.zip
 
+- name: download application
+  ansible.builtin.unarchive:
+    src: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v{{ app_version }}.zip"
+    dest: /app
+    remote_src: yes
+
+- name: install dependencies
+  community.general.npm:
+    path: /app
+
 # this module thinks file exist on ansible control server, needs to extract on to remote machine
 # remote_src: yes means files already exist in catalogue server
 - name: "extract {{ component }} code"
@@ -22,3 +32,8 @@
     src: "/tmp/{{ component }}.zip"
     dest: /app
     remote_src: yes
+
+- name: restart {{ component }}
+  ansible.builtin.service:
+    name: "{{ component }}"
+    state: restarted    
