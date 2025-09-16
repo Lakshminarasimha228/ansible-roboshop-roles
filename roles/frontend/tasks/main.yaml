@@ -36,14 +36,16 @@
     dest: /usr/share/nginx/html
     remote_src: yes
 
-- name: remove default nginx conf
-  ansible.builtin.file:
-    path: /etc/nginx/nginx.conf
-    state: absent
+- name: backup default nginx conf
+  ansible.builtin.copy:
+    src: /etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf.bak
+    remote_src: yes
+    force: yes
 
 - name: copy roboshop nginx conf
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/nginx.conf
   notify:
-    - Restart nginx
+    - Test nginx config and restart
