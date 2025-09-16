@@ -2,9 +2,6 @@
   ansible.builtin.file:
     path: /app
     state: directory
-    owner: roboshop
-    group: roboshop
-    mode: '0755'
 
 - name: create roboshop system user
   ansible.builtin.user:
@@ -12,35 +9,31 @@
     shell: /sbin/nologin
     system: true
     home: /app
-
-- name: Install Node.js (required for npm)
-  ansible.builtin.shell: |
-    curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-    yum install -y nodejs
-  args:
-    executable: /bin/bash
-    become: yes
+- name: download application
+  ansible.builtin.unarchive:
+    src: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v{{ app_version }}.zip"
+    dest: /app
+    remote_src: yes    
 
 - name: "download {{ component }} code"
   ansible.builtin.get_url:
     url: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip"
     dest: /tmp/{{ component }}.zip
 
+
+- name: install dependencies
+  community.general.npm:
+    path: /app
+
+# this module thinks file exist on ansible control server, needs to extract on to remote machine
+# remote_src: yes means files already exist in catalogue server
 - name: "extract {{ component }} code"
   ansible.builtin.unarchive:
     src: "/tmp/{{ component }}.zip"
     dest: /app
     remote_src: yes
-    owner: roboshop
-    group: roboshop
-
-- name: install dependencies
-  community.general.npm:
-    path: /app
-    become: yes
 
 - name: restart {{ component }}
   ansible.builtin.service:
     name: "{{ component }}"
-    state: restarted
-    become: yes
+    state: restarted    
