@@ -13,12 +13,19 @@
     system: true
     home: /app
 
+- name: Install Node.js (required for npm)
+  ansible.builtin.shell: |
+    curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+    yum install -y nodejs
+  args:
+    executable: /bin/bash
+    become: yes
+
 - name: "download {{ component }} code"
   ansible.builtin.get_url:
     url: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip"
     dest: /tmp/{{ component }}.zip
 
-# correct extraction (from downloaded file)
 - name: "extract {{ component }} code"
   ansible.builtin.unarchive:
     src: "/tmp/{{ component }}.zip"
@@ -30,8 +37,10 @@
 - name: install dependencies
   community.general.npm:
     path: /app
+    become: yes
 
 - name: restart {{ component }}
   ansible.builtin.service:
     name: "{{ component }}"
     state: restarted
+    become: yes
