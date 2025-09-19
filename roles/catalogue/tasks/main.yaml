@@ -30,7 +30,7 @@
 - name: load products
   ansible.builtin.shell: mongosh --host mongodb.lakshmi.cyou < /app/db/master-data.js
   when: catalogue_output.stdout | int < 0
-  ignore_error: true
+  ignore_errors: true
 
 - name: systemd setup
   include_role:
