@@ -28,7 +28,7 @@
   ansible.builtin.debug:
     msg: "{{ catalogue_output }}"
   # ignore_errors: true
-  # ignore_unreachable: true  
+  # ignore_unreachable: true
 
 - name: load products
   ansible.builtin.shell: mongosh --host mongodb.lakshmi.cyou < /app/db/master-data.js
@@ -41,8 +41,8 @@
     name: common
     tasks_from: systemd.yaml
 
-# - name: app setup
-#   tags:
+# - name: Deployment
+#   tags: 
 #   - deployment
 #   import_role:
 #     name: common
